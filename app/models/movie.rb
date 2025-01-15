@@ -1,4 +1,5 @@
 class Movie < ApplicationRecord
+  has_many :favourites, dependent: :destroy
   has_many :reviews, dependent: :destroy
   validates :title, :released_on, :duration, presence: true
   validates :description, length: { minimum: 25 }
@@ -27,7 +28,7 @@ class Movie < ApplicationRecord
   end
 
   def flop?
-    unless (reviews.count > 50 && average_stars >= 4)
+    unless reviews.count > 50 && average_stars >= 4
       (total_gross.blank? || total_gross < 225_000_000)
     end
   end
@@ -39,5 +40,4 @@ class Movie < ApplicationRecord
   def average_stars_as_percent
     (self.average_stars / 5.0) * 100.0
   end
-
 end
