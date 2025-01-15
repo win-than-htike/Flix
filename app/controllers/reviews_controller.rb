@@ -5,7 +5,7 @@ class ReviewsController < ApplicationController
     def index
         @reviews = @movie.reviews
     end
-    
+
     def new
         @review = @movie.reviews.new
     end
@@ -19,8 +19,8 @@ class ReviewsController < ApplicationController
         else
           render :new, status: :unprocessable_entity
         end
-      end
-      
+    end
+
     private
 
     def review_params
