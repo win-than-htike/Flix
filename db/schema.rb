@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_16_130105) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_16_183745) do
   create_table "favourites", force: :cascade do |t|
     t.integer "movie_id", null: false
     t.integer "user_id", null: false
@@ -46,6 +46,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_16_130105) do
     t.string "director"
     t.string "duration"
     t.string "image_file_name", default: "placeholder.png"
+    t.string "slug"
   end
 
   create_table "reviews", force: :cascade do |t|
