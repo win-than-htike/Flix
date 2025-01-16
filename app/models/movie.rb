@@ -3,6 +3,8 @@ class Movie < ApplicationRecord
   has_many :reviews, dependent: :destroy
   has_many :critics, through: :reviews, source: :user
   has_many :fans, through: :favourites, source: :user
+  has_many :movie_genres, dependent: :destroy
+  has_many :genres, through: :movie_genres
 
   validates :title, :released_on, :duration, presence: true
   validates :description, length: { minimum: 25 }
