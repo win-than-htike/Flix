@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     resources :favourites, only: [:create, :destroy]
   end
 
-  resource :session, only: [:new, :create, :destroy]
+  resource :session, only: [ :new, :create, :destroy ]
 
   resources :users
   get "signup" => "users#new"

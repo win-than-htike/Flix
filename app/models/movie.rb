@@ -8,16 +8,17 @@ class Movie < ApplicationRecord
   has_many :movie_genres, dependent: :destroy
   has_many :genres, through: :movie_genres
 
+  has_one_attached :main_image
+
   validates :title, presence: true, uniqueness: true
   validates :released_on, :duration, presence: true
   validates :description, length: { minimum: 25 }
   validates :total_gross, numericality: { greater_than_or_equal_to: 0 }
-  validates :image_file_name, format: {
-    with: /\w+\.(jpg|png)\z/i,
-    message: "must be a JPG or PNG image"
-  }
+
   RATINGS = %w[G PG PG-13 R NC-17]
   validates :rating, inclusion: { in: RATINGS }
+
+  validate :acceptable_image
 
   scope :released, -> { where("released_on < ?", Time.now).order("released_on desc") }
   scope :upcoming, -> { where("released_on > ?", Time.now).order("released_on asc") }
@@ -50,6 +51,20 @@ class Movie < ApplicationRecord
   end
 
 private
+
+  def acceptable_image
+    return unless main_image.attached?
+
+    unless main_image.blob.byte_size <= 10.megabyte
+      errors.add(:main_image, "is too big")
+    end
+
+    acceptable_types = ["image/jpeg", "image/png"]
+    unless acceptable_types.include?(main_image.blob.content_type)
+      errors.add(:main_image, "must be a JPEG or PNG")
+    end
+  end
+
   def set_slug
     self.slug = title.parameterize
   end
