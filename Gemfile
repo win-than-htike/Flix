@@ -13,6 +13,8 @@ end
 group :production do
   gem "pg"
 end
+
+gem "aws-sdk-s3"
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
