@@ -24,14 +24,14 @@
                 <%= link_to current_user.name, current_user %>
             </li>
             <li>
-                <%= button_to "Sign Out", session_path, method: :delete, class: "button" %>
+                <%= button_to "Sign Out", destroy_user_session_path, method: :delete, class: "button" %>
             </li>
         <% else %>
             <li>
-                <%= link_to "Sign In", new_session_path, class: "button"  %>
+                <%= link_to "Sign In", new_user_session_path, class: "button"  %>
             </li>
             <li>
-                <%= link_to "Sign Up", signup_path, class: "button" %>
+                <%= link_to "Sign Up", new_user_registration_path, class: "button" %>
             </li>
         <% end %>
     </ul>

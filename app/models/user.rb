@@ -1,10 +1,13 @@
 class User < ApplicationRecord
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable
   before_save :format_username, :format_email
 
   has_many :favourites, dependent: :destroy
   has_many :reviews, dependent: :destroy
   has_many :favourite_movies, through: :favourites, source: :movie
-  has_secure_password
 
   validates :username, presence: true,
                      format: { with: /\A[A-Z0-9]+\z/i },
@@ -16,7 +19,7 @@ class User < ApplicationRecord
                     format: { with: /\S+@\S+/ },
                     uniqueness: { case_sensitive: false }
 
-  validates :password, length: { minimum: 10, allow_blank: true }
+  validates :password, length: { minimum: 6, allow_blank: true }
 
   scope :by_name, -> { order(:name) }
 

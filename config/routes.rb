@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  devise_for :users, path: '', path_names: {
+    sign_in: 'login',
+    sign_out: 'logout',
+    sign_up: 'signup'
+  }
+  
   resources :genres
   root "movies#index"
 
@@ -9,8 +15,6 @@ Rails.application.routes.draw do
     resources :favourites, only: [:create, :destroy]
   end
 
-  resource :session, only: [ :new, :create, :destroy ]
+  resources :users, only: [:index, :show, :edit, :update]
 
-  resources :users
-  get "signup" => "users#new"
 end
