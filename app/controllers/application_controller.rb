@@ -13,6 +13,11 @@ protected
 
 private
 
+  def current_user?(user)
+    current_user == user
+  end
+  helper_method :current_user? 
+
   def current_user_admin?
     current_user && current_user.admin?
   end
