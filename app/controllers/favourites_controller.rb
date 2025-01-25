@@ -1,5 +1,5 @@
 class FavouritesController < ApplicationController
-  before_action :require_signin
+  before_action :authenticate_user!
   before_action :set_movie
   def create
     @movie.favourites.create!(user: current_user)
