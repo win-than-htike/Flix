@@ -3,6 +3,8 @@ Rails.application.routes.draw do
     sign_in: 'login',
     sign_out: 'logout',
     sign_up: 'signup'
+  }, controllers: {
+    registrations: 'users/registrations'
   }
   
   resources :genres
@@ -15,6 +17,6 @@ Rails.application.routes.draw do
     resources :favourites, only: [:create, :destroy]
   end
 
-  resources :users, only: [:index, :show, :edit, :update]
+  resources :users, only: [:index, :show, :edit, :update, :destroy]
 
 end

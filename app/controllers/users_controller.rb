@@ -25,9 +25,12 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user.destroy
-    session[:user_id] = nil
-    redirect_to movies_path, status: :see_other, alret: "Account successfully deleted!"
+    if @user != current_user
+      @user.destroy
+      redirect_to users_path, notice: "User account successfully deleted!"
+    else
+      redirect_to users_path, alert: "You cannot delete your own admin account!"
+    end
   end
 
 private
