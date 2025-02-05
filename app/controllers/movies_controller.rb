@@ -1,5 +1,5 @@
 class MoviesController < ApplicationController
-  before_action :require_signin, except: [:index, :show]
+  before_action :authenticate_user!
   before_action :require_admin, except: [:index, :show]
   before_action :set_movie, only: [:show, :edit, :update, :destroy]
 
@@ -8,6 +8,11 @@ class MoviesController < ApplicationController
       @movies = Movie.send(movies_filter)
     else
       @movies = Movie.released
+    end
+
+    respond_to do |format|
+      format.html # renders index.html.erb
+      format.json { render json: @movies }
     end
   end
 
