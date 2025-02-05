@@ -11,10 +11,10 @@
             <%= link_to "Edit Account", edit_user_registration_path, class: "button edit" %>
         <% end %>
         <% if current_user_admin? %>
-            <%= button_to "Delete Account", @user,
-                    method: :delete, 
-                    data: { turbo_confirm: "Permanently delete your account!?" },
-                    class: "button delete" %>
+            <%= button_to "Delete Account", delete_user_path(@user),
+                method: :delete,
+                data: { turbo_confirm: "Permanently delete your account!?" },
+                class: "button delete" %>
         <% end %>
     </div>
     <% if @reviews.present? %>

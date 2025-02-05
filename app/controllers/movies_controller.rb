@@ -9,6 +9,11 @@ class MoviesController < ApplicationController
     else
       @movies = Movie.released
     end
+
+    respond_to do |format|
+      format.html # renders index.html.erb
+      format.json { render json: @movies }
+    end
   end
 
   def show

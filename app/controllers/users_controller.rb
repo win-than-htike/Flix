@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :require_correct_user, only: [:edit, :update, :destroy]
+  before_action :require_correct_user, only: [:edit, :update]
   before_action :require_admin, only: [:destroy]
   before_action :set_user, only: [:show, :update, :edit, :destroy]
 
@@ -25,12 +25,9 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    if @user != current_user
-      @user.destroy
-      redirect_to users_path, notice: "User account successfully deleted!"
-    else
-      redirect_to users_path, alert: "You cannot delete your own admin account!"
-    end
+    Rails.logger.debug "Destroy action called in UsersController"
+    @user.destroy
+    redirect_to users_path, notice: "User account successfully deleted!"
   end
 
 private
